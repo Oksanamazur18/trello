@@ -1,9 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Board } from './pages/Board/Board';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
+    <div>
+    <Router>
+    <Routes>
+      <Route path="/board" element={<Board />} />
+    </Routes>
+  </Router>
+  
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -19,6 +28,7 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>
     </div>
   );
 }
