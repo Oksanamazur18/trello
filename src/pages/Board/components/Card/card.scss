@@ -1,0 +1,15 @@
+@import '../../variables.scss';
+.card-container{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 1px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.card-container:hover{
+background-color: $main-background-color;
+color: $text-color;
+}
