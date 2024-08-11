@@ -1,0 +1,52 @@
+@import './variables.scss';
+
+.board{
+    width: 100%;
+    background-color: $main-background-color;
+    box-sizing: border-box;
+    padding:  50px 100px;
+}
+
+.board-name{
+    text-align: center;
+    font-family: 'Jost';
+    color: $text-color;
+}
+
+.list-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+}
+
+.create-btn{
+    width: 250px;
+    height: 50px;
+    box-sizing: border-box;
+    @include button-settings;
+    background-color:  $border-color;
+    color: $main-background-color;
+}
+
+.create-btn:hover{
+    background-color: rgb(245, 245, 245);
+    border: 2px solid $border-hower-color;
+    color: $text-color;
+}
+
+.btn-home{
+    width: 200px;
+    height: 50px;
+    background-color: $text-color;
+    @include button-settings;
+    color: $main-background-color;
+    position: absolute;
+    top: 55px;
+    left: 104px;
+}
+
+.btn-home:hover{
+    background-color: $border-color;
+    color: $main-background-color;
+}

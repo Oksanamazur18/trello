@@ -1,0 +1,14 @@
+$main-background-color:rgb(248, 245, 215);
+$list-color:rgb(246, 241, 176);
+$border-color:rgb(174, 147, 46);
+$text-color:rgb(52, 42, 7);
+$border-hower-color: rgb(220, 208, 167);
+
+@mixin button-settings{
+    font-family: 'Jost';
+    text-align: center;
+    font-size: 20px;
+    margin: 20px;
+    border: none;
+    border-radius: 15px;
+}
