@@ -1,0 +1,61 @@
+@import '../../common/style/variables.scss';
+
+
+.home-container{
+    width: 100%;
+    min-height: 100vh;
+    background-color: $main-background-color;
+    box-sizing: border-box;
+    padding: 100px 50px;
+    font-family: 'Jost';
+    
+    
+    h1{
+        text-align: center;
+        color: $text-color;
+        text-shadow: 2px 5px 2px white;
+        font-size: 40px;
+        margin-bottom: 100px;
+    }
+
+    .boards-container{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+      
+    }
+}
+
+.create-btn{
+    width: 350px;
+    height: 250px;
+    border-radius: 15px;
+    color: $text-color;
+    font-family: 'Jost';
+    font-size: 24px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 5px solid white;
+    box-shadow: 3px 7px 44px 4px $text-color;
+    text-shadow: 0px 3px 3px $text-color;
+    margin: 20px;
+}
+.create-btn:hover{
+    background-color: $text-color;
+    box-shadow: none;
+    color: white;
+    border: 5px solid white;
+    text-shadow: 0px 3px 3px white;
+}
+
+.modal-board{
+    @include modal-settings;
+    position:fixed;
+}
+
+.error_message{
+    color: red;
+    margin-top: -24px;
+    margin-bottom: 10px;
+}
