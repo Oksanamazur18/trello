@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { boardNameRegex } from '../../common/constants/regex'
 interface NewBoardModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -12,7 +12,6 @@ export const NewModalBoard: React.FC<NewBoardModalProps> = ({ isOpen, onClose, o
   const [error, setError] = useState('');
 
   const handleSave = () => {
-    const boardNameRegex = /^[a-zA-Z0-9\u0400-\u04FF\s\-_.]+$/;
     if (boardName.trim() && boardNameRegex.test(boardName.trim())) {
       onSave(boardName, boardColor);
       setBoardName('');
@@ -29,6 +28,7 @@ export const NewModalBoard: React.FC<NewBoardModalProps> = ({ isOpen, onClose, o
   }
 
   return (
+    <div className="modal">
     <div className="modal-board">
       <div className="modal-content">
         <h2>Create new board</h2>
@@ -54,6 +54,7 @@ export const NewModalBoard: React.FC<NewBoardModalProps> = ({ isOpen, onClose, o
         </div>
 
       </div>
+    </div>
     </div>
   )
 }

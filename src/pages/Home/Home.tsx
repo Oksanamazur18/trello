@@ -2,12 +2,12 @@ import React from "react";
 import api from "../../api/request";
 import './home.scss';
 import { useState, useEffect } from "react";
-import  Board  from "../Home/components/Board/Board";
+import  Board  from "./components/BoardSmall/BoardSmall";
 import { IBoard } from "../../common/interfaces/IBoard";
 import CreateNewBoard from "./components/CreateNewBoard/CreateNewBoard";
 
 
-export const Home: React.FC = () => {
+ const Home = () => {
     const [boards, setBoards] = useState<IBoard[]>([]);
 
     const fetchBoards = async () => {
@@ -48,3 +48,4 @@ export const Home: React.FC = () => {
         </div>
     )
 }
+export default Home;

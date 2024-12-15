@@ -5,11 +5,11 @@ interface IRemoveBoardProps{
    onBoardRemove: ()=>void;
 }
 
-const RemoveBoard =({boardId, onBoardRemove}:IRemoveBoardProps)=>{
+const RemoveBoard =(props:IRemoveBoardProps)=>{
     const handleRemoveBoard= async()=>{
         try {
-            await  api.delete(`/board/${boardId}`);
-            onBoardRemove();
+            await  api.delete(`/board/${props.boardId}`);
+            props.onBoardRemove();
         }catch (error) {
             console.error(error);
         }

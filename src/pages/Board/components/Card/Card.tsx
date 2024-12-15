@@ -1,37 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import './card.scss';
-import UpdateCard from "./UpdateCard/UpdateCard";
 import RemoveCard from "./RemoveCard/RemoveCard";
+import { ICard } from "../../../../common/interfaces/ICard";
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../modal/modalSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+
 
 interface CardProps {
-  title: string;
-  cardId: number;
+  card:ICard;
   boardId: string | undefined;
   listId: number;
   onCardUpdating: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({ title, cardId, listId, boardId, onCardUpdating }) => {
-  const [isEditing, setIsEditing] = useState(false);
+const Card = ({ card, boardId, listId, onCardUpdating }: CardProps) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleClick = () => {
-    setIsEditing(true);  // Переключаємося в режим редагування
+  const handleClickUpdate = () => {
+    console.log('Перед dispatch: cardData:', card, 'listId:', listId);
+    navigate(`/board/${boardId}/card/${card.id}`);
+    dispatch(
+      openModal({
+        cardData: card,
+        board_id: boardId,
+        list_id:listId 
+      })
+    );
   };
-  return (
-    <div className="card-container" onClick={handleClick}>
-      {/* <h3 className="card-name">{title}</h3> */}
-      {isEditing ? (
-        <UpdateCard
-          cardId={cardId}
-          boardId={boardId}
-          listId={listId}
-          initialTitle={title}
-          isEditing={isEditing}
-          onClose={() => setIsEditing(false)}
-          onCardUpdating={onCardUpdating} />) :
-        (<h3 className="card-name">{title}</h3>)}
 
-      <RemoveCard boardId={boardId} cardId={cardId} onCardRemove={onCardUpdating}></RemoveCard>
+  return (
+    <div className="card-container">
+      <h3 className="card-name">{card.title}</h3>
+      <RemoveCard boardId={boardId} cardId={card.id} onCardRemove={onCardUpdating} />
+      <button className="btn-update" onClick={handleClickUpdate}>
+        <FontAwesomeIcon className="icon" icon={faPen} style={{ color: "#49432d" }} />
+        <div className="unvisible">редагувати</div>
+      </button>
     </div>
-  )
-}
+  );
+};
+
+export default Card;

@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import './newCard.scss';
+import { nameRegex } from "../../../../../common/constants/regex";
 
-interface NewModalCardProps {
+
+interface INewModalCardProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (listName: string, description:string, deadline: Date) => void;
 }
 
-export const NewModalCard: React.FC<NewModalCardProps> = ({ isOpen, onClose, onSave }) => {
+ const NewModalCard = (props:INewModalCardProps) => {
   const [cardName, setCardName] = useState("");
   const [cardDescription, setCardDescription] = useState("");
   const [cardDate, setCardDate] = useState(new Date());
   const [error, setError] = useState('');
 
   const handleSave = () => {
-    const cardNameRegex = /^[a-zA-Z0-9\u0400-\u04FF\s\-_.]+$/;
-    if (cardName.trim() && cardNameRegex.test(cardName.trim())) {
-      onSave(cardName, cardDescription, cardDate);
+    if (cardName.trim() && nameRegex.test(cardName.trim())) {
+      props.onSave(cardName, cardDescription, cardDate);
       setCardName('');
-      onClose();
+      props.onClose();
       setError('');
     } else {
       setError('Назва списку може містити лише цифри, літери, пробіли, тире, крапки та нижні підкреслення.');
@@ -26,7 +27,7 @@ export const NewModalCard: React.FC<NewModalCardProps> = ({ isOpen, onClose, onS
     }
   };
 
-  if (!isOpen) {
+  if (!props.isOpen) {
     return null;
   }
 
@@ -53,10 +54,11 @@ export const NewModalCard: React.FC<NewModalCardProps> = ({ isOpen, onClose, onS
           onChange={(e)=>setCardDate (new Date(e.target.value))}/>
          <div className="buttons">
          <button className="btn-save" onClick={handleSave}>save</button>
-         <button className="btn-cancel" onClick={onClose}>cancel</button>
+         <button className="btn-cancel" onClick={props.onClose}>cancel</button>
          </div>
        
       </div>
     </div>
   )
 }
+export default NewModalCard;

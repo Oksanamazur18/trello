@@ -1,34 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import api from "../../../../../api/request";
-// import { IList } from '../../../../../common/interfaces/IList';
-// import { title } from 'process';
-
+import { nameRegex } from '../../../../../common/constants/regex';
 
 interface IUpdateCardProps {
     boardId: string|undefined;
     cardId:number;
-    listId:number;
-    initialTitle: string;
+    listId:number|undefined;
+    initialTitle: string|undefined;
     isEditing: boolean;
     onClose:()=>void;
     onCardUpdating:()=>void;
 }
 
 
-const UpdateCard = ({ boardId, cardId, listId, initialTitle, isEditing, onClose, onCardUpdating }: IUpdateCardProps) => {
-    const [cardTitle, setCardTitle] = useState(initialTitle);
+const UpdateCard = (props: IUpdateCardProps) => {
+    const [cardTitle, setCardTitle] = useState(props.initialTitle);
     const [error, setError] = useState('');
 
 
     useEffect(() => {
-        setCardTitle(initialTitle);
-    }, [initialTitle]);
+        setCardTitle(props.initialTitle);
+    }, [props.initialTitle]);
 
-    const cardNameRegex = /^[a-zA-Z0-9\s\-_.,]+$/; 
 
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
        const value = e.target.value;
-       if(cardNameRegex.test(value)){
+       if(nameRegex.test(value)){
         setError('');
        }else{
         setError('Назва може містити лише цифри, літери, пробіли, тире, крапки та нижні підкреслення.')
@@ -45,19 +42,17 @@ const UpdateCard = ({ boardId, cardId, listId, initialTitle, isEditing, onClose,
         }
 
         try{
-            console.log('Board ID:', boardId);  // Перевірка, що передаємо правильний ID
+            console.log('Board ID:', props.boardId);  
             console.log('Board Title:', cardTitle);
-           await api.put(`/board/${boardId}/card/${cardId}`, {title: cardTitle, description:"", list_id:listId});
+           await api.put(`/board/${props.boardId}/card/${props.cardId}`, {title: cardTitle, description:"", list_id:props.listId});
 
-        //    const response:IList = await api.get(`/board/${boardId}`);
-        //    setListTitle(response.title)
-        onCardUpdating();
+        props.onCardUpdating();
 
         }catch (err) {
             setError('Не вдалося зберегти назву дошки');
             console.log(err + error)
           }
-         onClose();
+         props.onClose();
     } 
     
 
@@ -67,11 +62,8 @@ const handleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>)=>{
   }
 }
 
-const handleBlur  = ()=>{
-    handleSave()
-}
 
-    if (!isEditing) {
+    if (!props.isEditing) {
         return null;
     }
 
@@ -83,7 +75,7 @@ const handleBlur  = ()=>{
              className='update-card-input'
              value={cardTitle}
              onChange={handleInputChange}
-             onBlur={handleBlur}
+             onBlur={handleSave}
              onKeyDown={handleKeyPress} 
              autoFocus/>
         </div>

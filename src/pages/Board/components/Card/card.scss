@@ -76,3 +76,27 @@ color: $text-color;
     background-color: $text-color;
     color: white;
   }
+
+  .btn-update{
+   position: absolute;
+   top: 2px;
+   left: 220px;
+   background-color: white;
+   border: 1px solid $text-color;
+   border-radius: 2px;
+  }
+
+  .unvisible{
+  
+   display: none;
+  }
+
+  .btn-update:hover{
+   left: 165px;
+   .icon{
+      display: none;
+   }
+   .unvisible{
+      display: block;
+   }
+  }

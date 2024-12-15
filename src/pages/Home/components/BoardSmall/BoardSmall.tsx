@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import BoardTitle from "../BoardTitle/BoardTitle";
-import './board.scss'
+import './boardSmall.scss'
 import RemoveBoard from "../RemoveBoard/RemoveBoard";
-interface BoardProps {
+interface IBoardProps {
   id: number;
   title: string;
   custom: {
@@ -12,17 +12,17 @@ interface BoardProps {
   onBoardRemove: ()=>void;
 }
 
- const Board = ({ id, title, custom, onBoardRemove }: BoardProps) => {
+ const Board = (props: IBoardProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newTitle, setTitle]= useState(title);
-  const colorBoard = custom ? {
-    backgroundColor: custom.background
+  const [newTitle, setTitle]= useState(props.title);
+  const colorBoard = props.custom ? {
+    backgroundColor: props.custom.background
   } : {};
   
   const handleSave = async (newTitle:string) => {
     try {
-      setTitle(newTitle); // Оновлюємо локальний стан батьківського компоненту
-      setIsEditing(false); // Закриваємо режим редагування
+      setTitle(newTitle); 
+      setIsEditing(false); 
     } catch (error) {
       console.error("Помилка під час збереження назви:", error);
     }
@@ -37,23 +37,23 @@ interface BoardProps {
       <div className="title-container" onClick={handleClick}>
         {isEditing ? (
           <BoardTitle
-            boardId={id}
-            initialTitle={title}
+            boardId={props.id}
+            initialTitle={props.title}
             isEditing={isEditing}
             onEditing = {handleSave}
             onClose={() => setIsEditing(false)} />) :
           (<p className="title">{newTitle}</p>)}
       </div>
       <div className="actions">
-      <Link  onClick={()=>{console.log(id)}}
-        to={`/board/${id}`}
-        key={id}
+      <Link  onClick={()=>{console.log(props.id)}}
+        to={`/board/${props.id}`}
+        key={props.id}
         className="board-link"
       >
         Перейти до дошки
       </Link>
 
-      <RemoveBoard  boardId={id} onBoardRemove={onBoardRemove}></RemoveBoard>
+      <RemoveBoard  boardId={props.id} onBoardRemove={props.onBoardRemove}></RemoveBoard>
 
       </div>
       

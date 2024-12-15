@@ -1,17 +1,18 @@
 import React from "react";
 import api from "../../../../../api/request";
 
+
 interface IRemoveCardProps{
     boardId: string|undefined;
    cardId: number;
    onCardRemove: ()=>void;
 }
 
-const RemoveCard =({boardId, cardId, onCardRemove}:IRemoveCardProps)=>{
+const RemoveCard =(props:IRemoveCardProps)=>{
     const handleRemoveCard= async()=>{
         try {
-            await  api.delete(`/board/${boardId}/card/${cardId}`);
-            onCardRemove();
+            await  api.delete(`/board/${props.boardId}/card/${props.cardId}`);
+            props.onCardRemove();
         }catch (error) {
             console.error(error);
         }
