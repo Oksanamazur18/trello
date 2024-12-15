@@ -1,7 +1,8 @@
-@import './variables.scss';
+@import '../../common/style/variables.scss';
 
 .board{
     width: 100%;
+    min-height: 100vh;
     background-color: $main-background-color;
     box-sizing: border-box;
     padding:  50px 100px;
@@ -20,33 +21,55 @@
     overflow-x: auto;
 }
 
-.create-btn{
+.create-list-btn{
     width: 250px;
-    height: 50px;
+    height: 80px;
+    font-size: 20px;
     box-sizing: border-box;
-    @include button-settings;
+    border: 2px solid white;
+    border-radius: 10px;
     background-color:  $border-color;
     color: $main-background-color;
+    margin: 20px;
 }
 
-.create-btn:hover{
-    background-color: rgb(245, 245, 245);
+.create-list-btn:hover{
+    background-color: $text-color;
     border: 2px solid $border-hower-color;
-    color: $text-color;
+    color: $list-color;
 }
 
 .btn-home{
     width: 200px;
     height: 50px;
+    font-size: 18px;
     background-color: $text-color;
-    @include button-settings;
     color: $main-background-color;
     position: absolute;
     top: 55px;
-    left: 104px;
+    left: 120px;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 .btn-home:hover{
     background-color: $border-color;
     color: $main-background-color;
 }
+
+.home-link{
+    border: none;
+    padding: 0;
+}
+
+.board-input{
+    @include input-setttings;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.color-input{
+    margin-top: 10px;
+}
+
