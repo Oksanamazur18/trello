@@ -1,0 +1,102 @@
+@import '../../../../common/style/variables.scss';
+.card-container{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 1px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    border: 1px solid $border-color;
+}
+
+.card-container:hover{
+background-color: $list-color;
+color: $text-color;
+}
+
+.btn-delete-card{
+    @include button-settings;
+    width: 130px;
+    height: 25px;
+    line-height: 10px;
+    position: absolute;
+    top: 30px;
+    left: 122px;
+    box-shadow: none;
+    background-color: $border-color;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+}
+
+.card-name{
+   line-height: 0px;
+}
+
+.btn-delete-card:hover{
+    background-color: white;
+    border: 1px solid $text-color;
+ }
+
+
+ .update-card-input{
+    @include input-setttings;
+ }
+
+
+ .card-title-input, .card-description, .card-deadline{
+    @include input-setttings;
+    width: 95%;
+    height: 30px;
+    margin-bottom: 10px;
+ }
+
+ .buttons{
+   display: flex;
+   justify-content: space-around;
+   margin-top: 10px;
+}
+
+ .btn-save{
+   @include save-button;
+ }
+
+ .btn-save:hover{
+   background-color: white;
+   color: $text-color;
+ }
+
+
+ .btn-cancel{
+     @include cancel-button;   
+  }
+ 
+  .btn-cancel:hover{
+    background-color: $text-color;
+    color: white;
+  }
+
+  .btn-update{
+   position: absolute;
+   top: 2px;
+   left: 220px;
+   background-color: white;
+   border: 1px solid $text-color;
+   border-radius: 2px;
+  }
+
+  .unvisible{
+  
+   display: none;
+  }
+
+  .btn-update:hover{
+   left: 165px;
+   .icon{
+      display: none;
+   }
+   .unvisible{
+      display: block;
+   }
+  }
