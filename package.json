@@ -70,5 +70,5 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
-  }
+  }, "homepage": "https://oksanamazur18.github.io/trello"
 }
