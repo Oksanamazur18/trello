@@ -12,7 +12,7 @@ function App() {
   return (
     <Provider store={store}>
     <div>
-      <Router>
+      <Router  basename='/trello'>
         <Routes>
           <Route path="/board/:board_id" element={<Board />} />
           <Route path="/board/:board_id/card/:card_id" element={<Board />} />
