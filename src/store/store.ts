@@ -1,13 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import modalReducer from '../pages/modal/modalSlice'; 
-import listReducer from '../pages/Board/components/List/listSlice';
-import boardReducer from '../pages/Board/boardSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import modalReducer from "../pages/modal/modalSlice";
+import listReducer from "../pages/Board/components/List/listSlice";
+import boardReducer from "../pages/Board/boardSlice";
+import RegisterReducer from "../pages/authorization/Register/RegisterSlice"
+
 
 const store = configureStore({
   reducer: {
-    modal: modalReducer, 
+    modal: modalReducer,
     lists: listReducer,
     board: boardReducer,
+    register: RegisterReducer,
   },
 });
 

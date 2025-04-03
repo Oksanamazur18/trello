@@ -1,4 +1,4 @@
-@import '../../common/style/variables.scss';
+@import "../../common/style/variables.scss";
 
 .modal {
   position: fixed;
@@ -11,8 +11,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  font-family: 'Jost';
-
+  font-family: "Jost";
 }
 
 .modalContent {
@@ -22,7 +21,7 @@
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 300px;
-  height:auto;
+  height: auto;
   box-sizing: border-box;
   padding-top: 40px;
   padding-bottom: 98px;
@@ -35,39 +34,43 @@
   font-size: 20px;
   color: $text-color;
 }
-.close:hover {}
 
-p,label, span, textarea{
-   font-size: 25px;
-   color: $text-color;
+p,
+label,
+span,
+textarea {
+  font-size: 25px;
+  color: $text-color;
 }
- label, span{
+label,
+span {
   font-size: 21px;
   color: $text-color;
-  font-family: 'Jost';
- }
+  font-family: "Jost";
+}
 
- input, textarea{
+input,
+textarea {
   @include input-setttings;
- }
+}
 
- label{
+label {
   margin-top: 20px;
- }
+}
 
- textarea{
+textarea {
   font-size: 18px;
- }
+}
 
- .btnSave{
+.btnSave {
   position: absolute;
   background-color: red;
   top: 78%;
   left: 46%;
   @include button-settings;
   background-color: $main-background-color;
- }
+}
 
- .btnSave:hover{
+.btnSave:hover {
   @include button-hover;
- }
+}

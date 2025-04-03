@@ -1,0 +1,103 @@
+.board-container {
+  width: 350px;
+  height: 250px;
+  border-radius: 15px;
+  padding: 20px;
+  border: 5px solid white;
+  box-shadow: 14px 7px 29px -1px rgb(52, 42, 7);
+  margin: 20px;
+  box-sizing: border-box;
+}
+
+.title-container {
+  height: 50%;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+  font-family: "Jost";
+  box-sizing: border-box;
+  text-shadow: 2px 5px 2px rgb(52, 42, 7);
+}
+
+.board-container:hover {
+  box-shadow: none;
+}
+.board-container:hover .title {
+  font-size: 50px;
+  font-style: italic;
+  line-height: 10px;
+  margin: 30px 0 10px 0;
+}
+
+.error-message {
+  width: 83%;
+  border-radius: 5px;
+  background-color: rgb(171, 164, 141);
+  text-shadow: none;
+  color: rgb(182, 25, 25);
+  font-size: 15px;
+  line-height: 15px;
+  box-sizing: border-box;
+  padding: 5px;
+  text-align: center;
+}
+
+.actions {
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title_update {
+  width: 80%;
+  height: 30px;
+  font-size: 15px;
+  font-family: "Jost";
+  font-weight: 700;
+  color: rgb(52, 42, 7);
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  width: 146px;
+  height: 50px;
+  border-radius: 10px;
+  color: rgb(52, 42, 7);
+  font-family: "Jost";
+  font-size: 16px;
+  line-height: 40px;
+  font-weight: 400;
+  box-sizing: border-box;
+  padding: 5px;
+  background-color: white;
+  border: none;
+  box-shadow: 11px 7px 10px 0px rgb(52, 42, 7);
+}
+
+.btn-delete {
+  width: 146px;
+  height: 50px;
+  border-radius: 10px;
+  color: rgb(52, 42, 7);
+  font-family: "Jost";
+  font-size: 16px;
+  line-height: 40px;
+  font-weight: 400;
+  box-sizing: border-box;
+  padding: 5px;
+  background-color: white;
+  border: none;
+  box-shadow: 11px 7px 10px 0px rgb(52, 42, 7);
+}
+
+a:hover,
+.btn-delete:hover {
+  background-color: rgb(52, 42, 7);
+  border: 2px solid white;
+  width: 150px;
+  color: white;
+} /*# sourceMappingURL=boardSmall.css.map */

@@ -1,9 +1,8 @@
-@import '../../../../../common/style/variables.scss';
-.modal{
-    @include modal-settings;
-    width: 99%;
-    top: 93px;
-    left: 9px;
-    position:static;
-    }
-   
+@import "../../../../../common/style/variables.scss";
+.modal_card {
+  @include modal-settings;
+  width: 99%;
+  top: 93px;
+  left: 9px;
+  position: static;
+}

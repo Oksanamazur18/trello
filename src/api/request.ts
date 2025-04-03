@@ -1,49 +1,38 @@
-import axios from 'axios';
-import { api } from '../common/constants'; 
+import axios from "axios";
+import { api } from "../common/constants";
 
 const instance = axios.create({
   baseURL: api.baseURL,
   headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer 123', 
+    "Content-Type": "application/json",
   },
 });
 
-
 export const setupInterceptors = (setProgress: (progress: number) => void) => {
-  console.log()
+
   instance.interceptors.request.use((config) => {
-    setProgress(0); 
+    setProgress(0);
+    const token = localStorage.getItem("token");
+    if (token && !config.url?.includes("/login") && !config.url?.includes("/user")) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   });
 
   instance.interceptors.response.use(
     (response) => {
-      console.log(response.data+"rd")
-      setProgress(100); 
+      setProgress(100);
       return response;
     },
     (error) => {
+      if (error.response?.status === 401 || error.response?.status === 404) {
+        localStorage.removeItem("token");
+        window.location.href = "/trello/auth?error=not_found";
+      }
       setProgress(0);
       return Promise.reject(error);
     }
   );
-
-  instance.defaults.onDownloadProgress = (progressEvent) => {
-    const total = progressEvent.total ?? progressEvent.bytes; 
-console.log(progressEvent.loaded)
-    if (total) {
-      const percentage = Math.floor((progressEvent.loaded * 100) / total);
-      setProgress(percentage);
-      console.log(`Завантажено ${percentage}%`);
-    } else {
-      setProgress(progressEvent.loaded)
-      console.log(`Завантажено ${progressEvent.loaded} байтів`);
-     
-    }
-  };
-  
 };
-
 
 export default instance;

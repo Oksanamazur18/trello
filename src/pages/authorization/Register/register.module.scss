@@ -1,0 +1,66 @@
+@import "../../../common/style/variables.scss";
+
+.container {
+    width: 350px;
+    height: 532px;
+    margin: 100px auto;
+    background-color: $list-color;
+    box-sizing: border-box;
+    padding: 10px 0px 20px 40px;
+    border: 2px solid $border-color;
+    border-radius: 15px;
+    font-family: "Jost";
+    position: relative;
+
+    .heading {
+        text-align: center;
+        margin-left: -40px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .input {
+        margin: 20px 0;
+    }
+
+    .level_str {
+        font-size: 16px;
+        margin-top: -4px;
+    }
+
+    .error {
+        color: brown;
+    }
+
+    .login {
+        width: 92px;
+        height: 42px;
+        border: 1px solid $text-color;
+        position: absolute;
+        top: 87%;
+        left: 58%;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bolder;
+        text-align: center;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .btn_submit {
+        @include button-settings;
+        text-transform: uppercase;
+        width: 83%;
+        height: 37px;
+        box-shadow: none;
+        border: 1px solid $text-color;
+        padding: 0;
+    }
+
+    .btn_submit:hover {
+        color: white;
+        background-color: $text-color;
+    }
+}

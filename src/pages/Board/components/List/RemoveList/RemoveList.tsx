@@ -1,12 +1,12 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../../../store/store';
-import { removeList } from '../listSlice';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../store/store";
+import { removeList } from "../listSlice";
 
 interface IRemoveListProps {
   boardId: string | undefined;
   listId: number;
-  onListRemove: ()=>void;
+  onListRemove: () => void;
 }
 
 const RemoveList = ({ boardId, listId, onListRemove }: IRemoveListProps) => {
@@ -17,11 +17,11 @@ const RemoveList = ({ boardId, listId, onListRemove }: IRemoveListProps) => {
     dispatch(removeList({ boardId, listId }))
       .unwrap()
       .then(() => {
-        console.log('List removed successfully!');
+        console.log("List removed successfully!");
         onListRemove();
       })
       .catch((error) => {
-        console.error('Failed to remove list:', error);
+        console.error("Failed to remove list:", error);
       });
   };
 

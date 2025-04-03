@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../../../../../store/store';
-import { addNewList } from '../../../../Board/components/List/listSlice';
-import NewModalList from './NewModalList';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../../../../store/store";
+import { addNewList } from "../../../../Board/components/List/listSlice";
+import NewModalList from "./NewModalList";
 
-import { IList } from '../../../../../common/interfaces/IList';
+import { IList } from "../../../../../common/interfaces/IList";
 
 interface ICreateNewListProps {
   boardId: string | undefined;
   currentLists: IList[];
-  onListCreate: ()=> void;
+  onListCreate: () => void;
 }
 
 const CreateNewList = (props: ICreateNewListProps) => {
@@ -19,23 +19,21 @@ const CreateNewList = (props: ICreateNewListProps) => {
 
   const handleAddList = async (listName: string) => {
     if (!props.boardId) {
-      console.error('Board ID is undefined');
+      console.error("Board ID is undefined");
       return;
     }
 
     const position = props.currentLists.length + 1;
-
     dispatch(addNewList({ boardId: props.boardId, title: listName, position }))
       .unwrap()
       .then(() => {
         props.onListCreate();
-        console.log('List created successfully!');
+        console.log("List created successfully!");
         setModalOpen(false);
       })
       .catch((err) => {
-        console.error('Error creating list:', err);
+        console.error("Error creating list:", err);
       });
-     
   };
 
   return (
