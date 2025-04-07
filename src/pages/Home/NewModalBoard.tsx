@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { boardNameRegex } from "../../common/constants/regex";
+import { boardNameRegex } from "../../common/constants/regex.ts";
+
 interface NewBoardModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -54,10 +55,10 @@ export const NewModalBoard: React.FC<NewBoardModalProps> = ({
             name="color"
           />
           <div className="buttons">
-            <button className="btn-save" onClick={handleSave}>
+            <button type="button" className="btn-save" onClick={handleSave}>
               Save
             </button>
-            <button className="btn-cancel" onClick={onClose}>
+            <button type="button" className="btn-cancel" onClick={onClose}>
               Cancel
             </button>
           </div>
@@ -66,3 +67,5 @@ export const NewModalBoard: React.FC<NewBoardModalProps> = ({
     </div>
   );
 };
+
+export default NewModalBoard;

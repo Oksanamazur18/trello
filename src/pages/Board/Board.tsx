@@ -1,23 +1,23 @@
 import React, { useCallback, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../store/hooks";
-import { fetchBoard } from "../Board/boardSlice";
-import { RootState } from "../../store/store";
-import "./board.scss";
-import List from "./components/List/List";
-import CreateNewList from "./components/List/CreateList/CreateNewList";
 import { toast } from "react-toastify";
-import Modal from "../modal/Modal";
-import { openModal } from "../modal/modalSlice";
-import { ICard } from "../../common/interfaces/ICard";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks.ts";
+import { fetchBoard } from "./boardSlice.ts";
+import { RootState } from "../../store/store.ts";
+import "./board.scss";
+import List from "./components/List/List.tsx";
+import CreateNewList from "./components/List/CreateList/CreateNewList.tsx";
+import Modal from "../modal/Modal.tsx";
+import { openModal } from "../modal/modalSlice.ts";
+import type { ICard } from "../../common/interfaces/ICard.d.ts";
 
-export const Board = () => {
 
-  const { board_id, card_id } = useParams<{
-    board_id: string;
-    card_id?: string;
+export function Board  ()  {
+
+  const { boardId, cardId } = useParams<{
+    boardId: string;
+    cardId?: string;
   }>();
   const dispatch = useAppDispatch();
   const { board, loading, error } = useSelector(
@@ -26,32 +26,34 @@ export const Board = () => {
   const { isOpen } = useSelector((state: RootState) => state.modal);
   const navigate = useNavigate();
   useEffect(() => {
-    if (board_id) {
-      dispatch(fetchBoard(board_id));
+    console.log(boardId)
+    if (boardId) {
+      console.log("boardId")
+      dispatch(fetchBoard(boardId));
     }
-  }, [board_id, dispatch]);
+  }, [boardId, dispatch]);
 
   useEffect(() => {
-    if (card_id && !isOpen) {
-      const card = board?.lists
+    if (cardId && !isOpen) {
+      const foundCard = board?.lists
         ?.flatMap((list) => list.cards)
-        .find((card) => card.id === parseInt(card_id));
-      if (card) {
-        const list = board?.lists?.find((list) =>
-          list.cards.some((c: ICard) => c.id === parseInt(card_id)),
+        .find((card) => card.id === Number(cardId));
+      if (foundCard) {
+        const foundList = board?.lists?.find((list) =>
+          list.cards.some((c: ICard) => c.id === Number(cardId)),
         );
         dispatch(
-          openModal({ cardData: card, board_id, list_id: list?.id || 0 }),
+          openModal({ cardData: foundCard, boardId, listId: foundList?.id || 0 }),
         );
       }
     }
-  }, [card_id, board, dispatch, isOpen]);
+  }, [cardId, board, dispatch, isOpen]);
 
   const handleBoardUpdate = useCallback(() => {
-    if (board_id) {
-      dispatch(fetchBoard(board_id));
+    if (boardId) {
+      dispatch(fetchBoard(boardId));
     }
-  }, [board_id, dispatch]);
+  }, [boardId, dispatch]);
 
   if (loading) {
     return (
@@ -80,7 +82,7 @@ export const Board = () => {
 
   return (
     <div className="board">
-      <Link to={`/`} className="home-link">
+      <Link to="/" className="home-link">
         <input type="button" className="btn-home" value="<- додому" />
       </Link>
       <button
@@ -101,10 +103,10 @@ export const Board = () => {
           />
         ))}
         <CreateNewList
-          boardId={board_id}
+          boardId={boardId}
           onListCreate={handleBoardUpdate}
           currentLists={listsAll}
-        ></CreateNewList>
+        />
       </div>
       <Modal />
     </div>

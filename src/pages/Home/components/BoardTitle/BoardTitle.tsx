@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from "../../../../api/request";
-import { IBoard } from "../../../../common/interfaces/IBoard";
+import api from "../../../../api/request.ts";
+import type { IBoard } from "../../../../common/interfaces/IBoard.d.ts";
 
 interface IBoartTitleProps {
   boardId: number;
@@ -10,13 +10,13 @@ interface IBoartTitleProps {
   onEditing: (newTitle: string) => void;
 }
 
-const BoardTitle = (props: IBoartTitleProps) => {
-  const [boardTitle, setBoardTitle] = useState(props.initialTitle);
+const BoardTitle = ({boardId, initialTitle, isEditing,  onClose, onEditing}: IBoartTitleProps) => {
+  const [boardTitle, setBoardTitle] = useState(initialTitle);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    setBoardTitle(props.initialTitle);
-  }, [props.initialTitle]);
+    setBoardTitle(initialTitle);
+  }, [initialTitle]);
 
   const boardNameRegex = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9\s\-_.,]+$/;
 
@@ -39,18 +39,18 @@ const BoardTitle = (props: IBoartTitleProps) => {
     }
 
     try {
-      console.log("Board ID:", props.boardId);
+      console.log("Board ID:", boardId);
       console.log("Board Title:", boardTitle);
-      await api.put(`/board/${props.boardId}`, { title: boardTitle });
+      await api.put(`/board/${boardId}`, { title: boardTitle });
 
-      const response: IBoard = await api.get(`/board/${props.boardId}`);
+      const response: IBoard = await api.get(`/board/${boardId}`);
       setBoardTitle(response.title);
     } catch (err) {
       setError("Не вдалося зберегти назву дошки");
       console.log(err + error);
     }
-    props.onEditing(boardTitle);
-    props.onClose();
+    onEditing(boardTitle);
+    onClose();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,7 +63,7 @@ const BoardTitle = (props: IBoartTitleProps) => {
     handleSave();
   };
 
-  if (!props.isEditing) {
+  if (!isEditing) {
     return null;
   }
 

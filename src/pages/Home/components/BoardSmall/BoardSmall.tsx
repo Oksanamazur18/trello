@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import BoardTitle from "../BoardTitle/BoardTitle";
+import BoardTitle from "../BoardTitle/BoardTitle.tsx";
 import "./boardSmall.scss";
-import RemoveBoard from "../RemoveBoard/RemoveBoard";
+import RemoveBoard from "../RemoveBoard/RemoveBoard.tsx";
+
 interface IBoardProps {
   id: number;
   title: string;
@@ -12,12 +13,12 @@ interface IBoardProps {
   onBoardRemove: () => void;
 }
 
-const Board = (props: IBoardProps) => {
+const Board = ({id, title, custom, onBoardRemove}: IBoardProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newTitle, setTitle] = useState(props.title);
-  const colorBoard = props.custom
+  const [newTitle, setTitle] = useState(title);
+  const colorBoard = custom
     ? {
-      backgroundColor: props.custom.background,
+      backgroundColor: custom.background,
     }
     : {};
 
@@ -39,8 +40,8 @@ const Board = (props: IBoardProps) => {
       <div className="title-container" onClick={handleClick}>
         {isEditing ? (
           <BoardTitle
-            boardId={props.id}
-            initialTitle={props.title}
+            boardId={id}
+            initialTitle={title}
             isEditing={isEditing}
             onEditing={handleSave}
             onClose={() => setIsEditing(false)}
@@ -52,19 +53,19 @@ const Board = (props: IBoardProps) => {
       <div className="actions">
         <Link
           onClick={() => {
-            console.log(props.id);
+            console.log(id);
           }}
-          to={`/board/${props.id}`}
-          key={props.id}
+          to={`/board/${id}`}
+          key={id}
           className="board-link"
         >
           Перейти до дошки
         </Link>
 
         <RemoveBoard
-          boardId={props.id}
-          onBoardRemove={props.onBoardRemove}
-        ></RemoveBoard>
+          boardId={id}
+          onBoardRemove={onBoardRemove}
+        />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from "../../../../../api/request";
-import { nameRegex } from "../../../../../common/constants/regex";
+import api from "../../../../../api/request.ts";
+import { nameRegex } from "../../../../../common/constants/regex.ts";
 
 interface IUpdateCardProps {
   boardId: string | undefined;

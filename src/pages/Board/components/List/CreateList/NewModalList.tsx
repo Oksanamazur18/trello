@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { nameRegex } from "../../../../../common/constants/regex";
+import { nameRegex } from "../../../../../common/constants/regex.ts";
 
 interface INewModalListProps {
   isOpen: boolean;
@@ -7,15 +7,15 @@ interface INewModalListProps {
   onSave: (listName: string) => void;
 }
 
-const NewModalList = (props: INewModalListProps) => {
+const NewModalList = ({isOpen,onClose, onSave}: INewModalListProps) => {
   const [listName, setListName] = useState("");
   const [error, setError] = useState("");
 
   const handleSave = () => {
     if (listName.trim() && nameRegex.test(listName.trim())) {
-      props.onSave(listName);
+      onSave(listName);
       setListName("");
-      props.onClose();
+      onClose();
       setError("");
     } else {
       setError(
@@ -25,7 +25,7 @@ const NewModalList = (props: INewModalListProps) => {
     }
   };
 
-  if (!props.isOpen) {
+  if (!isOpen) {
     return null;
   }
 
@@ -42,10 +42,10 @@ const NewModalList = (props: INewModalListProps) => {
             placeholder="List Name"
           />
           <div className="buttons">
-            <button className="btn-save" onClick={handleSave}>
+            <button type="button" className="btn-save" onClick={handleSave}>
               save
             </button>
-            <button className="btn-cancel" onClick={props.onClose}>
+            <button type="button" className="btn-cancel" onClick={onClose}>
               cancel
             </button>
           </div>

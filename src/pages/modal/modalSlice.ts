@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { ICard } from "../../common/interfaces/ICard";
-import api from "../../api/request";
+import type { ICard } from "../../common/interfaces/ICard.d.ts";
+import api from "../../api/request.ts";
 
 interface ModalState {
   isOpen: boolean;
@@ -50,13 +50,13 @@ const modalSlice = createSlice({
       state,
       action: PayloadAction<{
         cardData: ICard;
-        board_id: string | undefined;
-        list_id: number;
+        boardId: string | undefined;
+        listId: number;
       }>,
     ) => {
       state.isOpen = true;
       state.cardData = action.payload.cardData;
-      state.list_id = action.payload.list_id;
+      state.list_id = action.payload.listId;
     },
     closeModal: (state) => {
       state.isOpen = false;

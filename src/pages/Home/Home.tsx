@@ -1,11 +1,11 @@
-import React from "react";
-import api from "../../api/request";
-import "./home.scss";
-import { useState, useEffect } from "react";
-import Board from "./components/BoardSmall/BoardSmall";
-import { IBoard } from "../../common/interfaces/IBoard";
-import CreateNewBoard from "./components/CreateNewBoard/CreateNewBoard";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../api/request.ts";
+import "./home.scss";
+import Board from "./components/BoardSmall/BoardSmall.tsx";
+import type { IBoard } from "../../common/interfaces/IBoard.d.ts";
+import CreateNewBoard from "./components/CreateNewBoard/CreateNewBoard.tsx";
+
 
 const Home = () => {
   const [boards, setBoards] = useState<IBoard[]>([]);

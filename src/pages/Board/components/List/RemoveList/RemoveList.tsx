@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../store/store";
-import { removeList } from "../listSlice";
+import { AppDispatch } from "../../../../../store/store.ts";
+import { removeList } from "../listSlice.ts";
 
 interface IRemoveListProps {
   boardId: string | undefined;

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "../pages/modal/modalSlice";
-import listReducer from "../pages/Board/components/List/listSlice";
-import boardReducer from "../pages/Board/boardSlice";
-import RegisterReducer from "../pages/authorization/Register/RegisterSlice"
+import modalReducer from "../pages/modal/modalSlice.ts";
+import listReducer from "../pages/Board/components/List/listSlice.ts";
+import boardReducer from "../pages/Board/boardSlice.ts";
+import RegisterReducer from "../pages/authorization/Register/RegisterSlice.ts"
 
 
 const store = configureStore({

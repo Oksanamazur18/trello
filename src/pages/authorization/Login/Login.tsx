@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styles from "./login.module.scss";
-import api from "../../../api/request";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import styles from "./login.module.scss";
+import api from "../../../api/request.ts";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const [error, setError] = useState("");
+    const [errorNew, setErrorNew] = useState("");
     const searchParams = new URLSearchParams(location.search);
     const errorParam = searchParams.get("error");
 
@@ -29,7 +28,7 @@ const Login = () => {
             return response.data;
         } catch (error: any) {
             if (error.response?.status === 404 || error.response?.status === 401) {
-                setError("Не  знайдено користувача з такими поштою чи паролем")
+                setErrorNew("Не  знайдено користувача з такими поштою чи паролем")
             }
             console.error("Помилка авторизації:", error.response?.data?.message || "Помилка з'єднання");
             return error.response?.data?.message || "Помилка з'єднання";
@@ -57,13 +56,13 @@ const Login = () => {
                         placeholder="password"
                         type="text" />
                 </div>
-                <p>{error}</p>
+                <p>{errorNew}</p>
                 <button className={styles.btn_submit} type="submit">Увійти</button>
             </form>
 
             <Link
                 className={styles.registration}
-                to={"/login"}>
+                to="/login">
                 Зареєструватися
             </Link>
         </div>

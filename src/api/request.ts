@@ -1,5 +1,5 @@
 import axios from "axios";
-import { api } from "../common/constants";
+import { api } from "../common/constants/index.ts";
 
 const instance = axios.create({
   baseURL: api.baseURL,
@@ -14,6 +14,7 @@ export const setupInterceptors = (setProgress: (progress: number) => void) => {
     setProgress(0);
     const token = localStorage.getItem("token");
     if (token && !config.url?.includes("/login") && !config.url?.includes("/user")) {
+      // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react";
-import api from "../../../../api/request";
-import { NewModalBoard } from "../../NewModalBoard";
+import React, {useState} from "react";
+import api from "../../../../api/request.ts";
+import { NewModalBoard } from "../../NewModalBoard.tsx";
 
 interface CreateNewBoardProps {
   onBoardCreate: () => void;
@@ -33,6 +32,7 @@ const CreateNewBoard = ({ onBoardCreate }: CreateNewBoardProps) => {
   return (
     <div>
       <button
+        type="button"
         className="create-btn"
         onClick={() => setModalOpen(true)}>
         + створити дошку

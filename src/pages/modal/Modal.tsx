@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { closeModal, updateCardData } from "./modalSlice";
-import { useParams } from "react-router-dom";
-import styles from "./modal.module.scss";
-import { ICard } from "../../common/interfaces/ICard";
-import { fetchBoard } from "../Board/boardSlice";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AppDispatch, RootState } from "../../store/store.ts";
+import { closeModal, updateCardData } from "./modalSlice.ts";
+import styles from "./modal.module.scss";
+import type { ICard } from "../../common/interfaces/ICard.d.ts";
+import { fetchBoard } from "../Board/boardSlice.ts";
 
-const Modal = () => {
+
+export const Modal = () => {
   const { isOpen, cardData } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch<AppDispatch>();
-  const { board_id } = useParams<{ board_id: string }>();
+  const { boardId } = useParams<{ boardId: string }>();
   const navigate = useNavigate();
   const listId = useSelector((state: RootState) => state.modal.list_id);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -25,6 +25,11 @@ const Modal = () => {
       setEditedCardData({ ...cardData });
     }
   }, [cardData]);
+
+  const handleClose = () => {
+    dispatch(closeModal());
+    navigate(`/board/${boardId}`);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -42,17 +47,14 @@ const Modal = () => {
     };
   }, [isOpen]);
 
-  if (!board_id) {
+  if (!boardId) {
     console.error("board_id is undefined!");
     return <div>Error: Board ID is missing.</div>;
   }
 
   if (!isOpen) return null;
 
-  const handleClose = () => {
-    dispatch(closeModal());
-    navigate(`/board/${board_id}`);
-  };
+ 
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -64,19 +66,19 @@ const Modal = () => {
   };
 
   const handleSave = () => {
-    if (editedCardData && board_id && listId !== null) {
-      navigate(`/board/${board_id}`);
+    if (editedCardData && boardId && listId !== null) {
+      navigate(`/board/${boardId}`);
       dispatch(
         updateCardData({
           updatedCardData: editedCardData,
-          boardId: board_id,
+          boardId,
           listId,
         }),
       )
         .unwrap()
         .then(() => {
           console.log("Card updated successfully!");
-          dispatch(fetchBoard(board_id));
+          dispatch(fetchBoard(boardId));
           dispatch(closeModal());
         })
         .catch((error) => {
@@ -108,7 +110,7 @@ const Modal = () => {
   return (
     <div className={styles.modal} onClick={handleClose}>
       <div className={styles.modalContent} onClick={(e) => handleClickOut(e)}>
-        <button className={styles.close} onClick={handleClose}>
+        <button type="button" className={styles.close} onClick={handleClose}>
           <FontAwesomeIcon icon={faXmark} />
         </button>
 
@@ -151,7 +153,7 @@ const Modal = () => {
           )}
         </div>
 
-        <button className={styles.btnSave} onClick={handleSave}>
+        <button type="button" className={styles.btnSave} onClick={handleSave}>
           Save
         </button>
       </div>

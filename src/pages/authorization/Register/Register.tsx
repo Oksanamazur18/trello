@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { emailRegex } from "../../../common/constants/regex";
-import styles from "./register.module.scss";
 import zxcvbn from "zxcvbn";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../../api/request";
+import api from "../../../api/request.ts";
+import { emailRegex } from "../../../common/constants/regex.ts";
+import styles from "./register.module.scss";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const Register = () => {
       </form>
 
       <Link
-        to={'/auth'}
+        to='/auth'
         className={styles.login}>
         Увійти
       </Link>

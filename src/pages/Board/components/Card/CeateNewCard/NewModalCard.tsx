@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./newCard.scss";
-import { nameRegex } from "../../../../../common/constants/regex";
+import { nameRegex } from "../../../../../common/constants/regex.ts";
 
 interface INewModalCardProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface INewModalCardProps {
   onSave: (listName: string, description: string, deadline: Date) => void;
 }
 
-const NewModalCard = (props: INewModalCardProps) => {
+const NewModalCard = ({isOpen, onClose, onSave}: INewModalCardProps) => {
   const [cardName, setCardName] = useState("");
   const [cardDescription, setCardDescription] = useState("");
   const [cardDate, setCardDate] = useState(new Date());
@@ -16,9 +16,9 @@ const NewModalCard = (props: INewModalCardProps) => {
 
   const handleSave = () => {
     if (cardName.trim() && nameRegex.test(cardName.trim())) {
-      props.onSave(cardName, cardDescription, cardDate);
+      onSave(cardName, cardDescription, cardDate);
       setCardName("");
-      props.onClose();
+      onClose();
       setError("");
     } else {
       setError(
@@ -28,7 +28,7 @@ const NewModalCard = (props: INewModalCardProps) => {
     }
   };
 
-  if (!props.isOpen) {
+  if (!isOpen) {
     return null;
   }
 
@@ -47,17 +47,17 @@ const NewModalCard = (props: INewModalCardProps) => {
           className="card-description"
           value={cardDescription}
           onChange={(e) => setCardDescription(e.target.value)}
-        ></textarea>
+        />
         <input
           className="card-deadline"
           type="date"
           onChange={(e) => setCardDate(new Date(e.target.value))}
         />
         <div className="buttons">
-          <button className="btn-save" onClick={handleSave}>
+          <button type="button" className="btn-save" onClick={handleSave}>
             save
           </button>
-          <button className="btn-cancel" onClick={props.onClose}>
+          <button type="button" className="btn-cancel" onClick={onClose}>
             cancel
           </button>
         </div>

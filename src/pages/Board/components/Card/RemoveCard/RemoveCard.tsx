@@ -1,5 +1,5 @@
 import React from "react";
-import api from "../../../../../api/request";
+import api from "../../../../../api/request.ts";
 
 interface IRemoveCardProps {
   boardId: string | undefined;
@@ -7,11 +7,11 @@ interface IRemoveCardProps {
   onCardRemove: () => void;
 }
 
-const RemoveCard = (props: IRemoveCardProps) => {
+const RemoveCard = ({boardId,cardId,onCardRemove}: IRemoveCardProps) => {
   const handleRemoveCard = async () => {
     try {
-      await api.delete(`/board/${props.boardId}/card/${props.cardId}`);
-      props.onCardRemove();
+      await api.delete(`/board/${boardId}/card/${cardId}`);
+      onCardRemove();
     } catch (error) {
       console.error(error);
     }

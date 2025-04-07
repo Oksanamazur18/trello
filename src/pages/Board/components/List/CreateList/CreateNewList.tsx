@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../../../../store/store";
-import { addNewList } from "../../../../Board/components/List/listSlice";
-import NewModalList from "./NewModalList";
-
-import { IList } from "../../../../../common/interfaces/IList";
+import { RootState, AppDispatch } from "../../../../../store/store.ts";
+import { addNewList } from "../listSlice.ts";
+import NewModalList from "./NewModalList.tsx";
+import type { IList } from "../../../../../common/interfaces/IList.d.ts";
 
 interface ICreateNewListProps {
   boardId: string | undefined;
@@ -12,22 +11,22 @@ interface ICreateNewListProps {
   onListCreate: () => void;
 }
 
-const CreateNewList = (props: ICreateNewListProps) => {
+const CreateNewList = ({boardId,currentLists,onListCreate}: ICreateNewListProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.lists.error);
 
   const handleAddList = async (listName: string) => {
-    if (!props.boardId) {
+    if (!boardId) {
       console.error("Board ID is undefined");
       return;
     }
 
-    const position = props.currentLists.length + 1;
-    dispatch(addNewList({ boardId: props.boardId, title: listName, position }))
+    const position = currentLists.length + 1;
+    dispatch(addNewList({ boardId, title: listName, position }))
       .unwrap()
       .then(() => {
-        props.onListCreate();
+        onListCreate();
         console.log("List created successfully!");
         setModalOpen(false);
       })
@@ -38,7 +37,7 @@ const CreateNewList = (props: ICreateNewListProps) => {
 
   return (
     <div>
-      <button className="create-list-btn" onClick={() => setModalOpen(true)}>
+      <button type="button" className="create-list-btn" onClick={() => setModalOpen(true)}>
         + створити список
       </button>
 

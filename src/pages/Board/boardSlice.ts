@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api/request";
-import { IBoard } from "../../common/interfaces/IBoard";
+import api from "../../api/request.ts";
+import type { IBoard } from "../../common/interfaces/IBoard.d.ts";
 
 interface BoardState {
   board: IBoard | null;
@@ -19,6 +19,7 @@ export const fetchBoard = createAsyncThunk(
   async (boardId: string, { rejectWithValue }) => {
     try {
       const response = await api.get(`/board/${boardId}`);
+      console.log(response.data, "RD");
       return response.data;
     } catch (error: unknown) {
       if (error instanceof Error && "response" in error) {
@@ -33,7 +34,7 @@ export const fetchBoard = createAsyncThunk(
     }
   },
 );
-
+/* eslint-disable no-param-reassign */
 const boardSlice = createSlice({
   name: "board",
   initialState,
@@ -60,6 +61,6 @@ const boardSlice = createSlice({
       });
   },
 });
-
+/* eslint-enable no-param-reassign */
 export const { resetBoard } = boardSlice.actions;
 export default boardSlice.reducer;

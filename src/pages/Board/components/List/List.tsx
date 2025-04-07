@@ -1,15 +1,14 @@
 import { useParams } from "react-router-dom";
 import React, { useState } from "react";
 import "./list.scss";
-import Card from "../Card/Card";
-import { IList } from "../../../../common/interfaces/IList";
-
-import CreateNewCard from "../Card/CeateNewCard/CreateNewCard";
-import RemoveList from "./RemoveList/RemoveList";
-import api from "../../../../api/request";
+import Card from "../Card/Card.tsx";
+import type  { IList } from "../../../../common/interfaces/IList.d.ts";
+import CreateNewCard from "../Card/CeateNewCard/CreateNewCard.tsx";
+import RemoveList from "./RemoveList/RemoveList.tsx";
+import api from "../../../../api/request.ts";
 
 const List = (list: IList) => {
-  const { board_id } = useParams();
+  const { boardId } = useParams();
   const [draggedCardId, setDraggedCardId] = useState<number | null>(null);
   const [slotIndex, setSlotIndex] = useState<number | null>(null);
 
@@ -17,7 +16,7 @@ const List = (list: IList) => {
     event: React.DragEvent<HTMLDivElement>,
     cardId: number,
     position: number,
-    list_id: number,
+    listId: number,
   ) => {
     event.dataTransfer.setData("text/plain", cardId.toString());
     setDraggedCardId(cardId);
@@ -37,16 +36,24 @@ const List = (list: IList) => {
     document.body.appendChild(dragImage);
     event.dataTransfer.setDragImage(dragImage, offsetX, offsetY);
 
+    // const updatedCards = list.cards
+    //   .filter((card) => card.id !== cardId)
+    //   .map(({ id, position: pos }) => ({
+    //     id,
+    //     position: pos > position ? pos - 1 : pos,
+    //     listId,
+    //   }));
+
     const updatedCards = list.cards
-      .filter((card) => card.id !== cardId)
-      .map((card) => ({
-        id: card.id,
-        position: card.position > position ? card.position - 1 : card.position,
-        list_id: list_id,
-      }));
+    .filter((card) => card.id !== cardId)
+    .map((card) => ({
+      id: card.id,
+      position: card.position > position ? card.position - 1 : card.position,
+      listId,
+    }));
 
     try {
-      await api.put(`/board/${board_id}/card`, updatedCards);
+      await api.put(`/board/${boardId}/card`, updatedCards);
     } catch (error) {
       console.error("Error updating card positions:", error);
     }
@@ -57,7 +64,8 @@ const List = (list: IList) => {
     index: number,
   ) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
+    const transferElement = event.dataTransfer;
+    transferElement.dropEffect = "move";
 
     const boundingRect = event.currentTarget.getBoundingClientRect();
     const offsetY = event.clientY - boundingRect.top;
@@ -67,8 +75,9 @@ const List = (list: IList) => {
 
   const handleDragOverList = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.dropEffect = "move";
+    const transfer = event.dataTransfer;
+    transfer.effectAllowed = "move";
+    transfer.dropEffect = "move";
     if (list.cards.length === 0) {
       setSlotIndex(0);
     }
@@ -78,6 +87,33 @@ const List = (list: IList) => {
       setSlotIndex(list.cards.length);
     }
   };
+
+  // const handleDragOverList = ({
+  //   preventDefault,
+  //   dataTransfer,
+  //   clientY,
+  //   currentTarget,
+  // }: React.DragEvent<HTMLDivElement>) => {
+  //   preventDefault();
+  
+  //   dataTransfer.effectAllowed = "move";
+  //   dataTransfer.dropEffect = "move";
+  
+  //   const { cards } = list;
+  
+  //   if (cards.length === 0) {
+  //     setSlotIndex(0);
+  //     return;
+  //   }
+  
+  //   const { top, height } = currentTarget.getBoundingClientRect();
+  //   const offsetY = clientY - top;
+  
+  //   if (offsetY > height - 20) {
+  //     setSlotIndex(cards.length);
+  //   }
+  // };
+  
 
   const handleDrop = async (
     event: React.DragEvent<HTMLDivElement>,
@@ -104,7 +140,7 @@ const List = (list: IList) => {
       updatedCards.push(newCard);
 
       try {
-        await api.put(`/board/${board_id}/card`, updatedCards);
+        await api.put(`/board/${boardId}/card`, updatedCards);
         list.onCardCreated();
       } catch (error) {
         console.error("Error dropping card:", error);
@@ -138,8 +174,8 @@ const List = (list: IList) => {
           .sort((a, b) => a.position - b.position)
           .map((card, index) => (
             <React.Fragment key={card.id}>
-              {slotIndex === index && <div className="slot"></div>}
-              {slotIndex === card.id && <div className="slot"></div>}
+              {slotIndex === index && <div className="slot"/>}
+              {slotIndex === card.id && <div className="slot"/>}
               <div
                 className={draggedCardId === card.id ? "hidden-card" : ""}
                 draggable="true"
@@ -153,22 +189,22 @@ const List = (list: IList) => {
                 <Card
                   listId={list.id}
                   card={card}
-                  boardId={board_id}
+                  boardId={boardId}
                   onCardUpdating={list.onCardCreated}
                 />
               </div>
             </React.Fragment>
           ))}
-        {slotIndex === list.cards.length && <div className="slot"></div>}
+        {slotIndex === list.cards.length && <div className="slot"/>}
       </div>
       <CreateNewCard
-        boardId={board_id}
+        boardId={boardId}
         listId={list.id}
         currentCards={list.cards}
         onCardCreate={list.onCardCreated}
       />
       <RemoveList
-        boardId={board_id}
+        boardId={boardId}
         listId={list.id}
         onListRemove={list.onCardCreated}
       />

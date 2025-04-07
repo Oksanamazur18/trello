@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../../../api/request";
-import { IList } from "../../../../common/interfaces/IList";
+import api from "../../../../api/request.ts";
+import type { IList } from "../../../../common/interfaces/IList.d.ts";
 
 interface ListState {
   lists: IList[];

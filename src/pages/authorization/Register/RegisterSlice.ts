@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { IUser } from "@/common/interfaces/IUser";
-import api from "../../../api/request";
+import type { IUser } from "@/common/interfaces/IUser.d.ts";
+import api from "../../../api/request.ts";
 
 interface UserState {
     user: IUser | null;
@@ -19,7 +19,6 @@ export const registerUser = createAsyncThunk(
     async ({ email, password }: { email: string; password: string }, thunkAPI) => {
         try {
             const responce = await api.post("/user", { email, password });
-            console.log(responce.data+"RD");
             return responce.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response?.data?.message)

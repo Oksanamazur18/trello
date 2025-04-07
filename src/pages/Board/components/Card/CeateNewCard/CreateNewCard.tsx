@@ -1,8 +1,7 @@
-import React from "react";
-import { useState } from "react";
-import api from "../../../../../api/request";
-import NewModalCard from "./NewModalCard";
-import { ICard } from "../../../../../common/interfaces/ICard";
+import React, {useState} from "react";
+import api from "../../../../../api/request.ts";
+import NewModalCard from "./NewModalCard.tsx";
+import type { ICard } from "../../../../../common/interfaces/ICard.d.ts";
 
 interface ICreateNewCardProps {
   boardId: string | undefined;
@@ -10,7 +9,7 @@ interface ICreateNewCardProps {
   currentCards: ICard[];
   onCardCreate: () => void;
 }
-const CreateNewCard = (props: ICreateNewCardProps) => {
+export function CreateNewCard ({boardId, listId,currentCards, onCardCreate}: ICreateNewCardProps) {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleAddCard = async (
@@ -18,22 +17,22 @@ const CreateNewCard = (props: ICreateNewCardProps) => {
     description: string,
     deadline: Date,
   ) => {
-    const position = props.currentCards.length === 0 ? 0 : props.currentCards.length + 1;
+    const position = currentCards.length === 0 ? 0 : currentCards.length + 1;
     try {
       await api.post(
-        `/board/${props.boardId}/card`,
+        `/board/${boardId}/card`,
         {
           title: cardName,
-          list_id: props.listId,
-          position: position,
-          description: description,
+          list_id: listId,
+          position,
+          description,
           custom: {
-            deadline: deadline,
+            deadline,
           },
         },
       
       );
-      props.onCardCreate();
+      onCardCreate();
     } catch (error) {
       console.error("Error adding new list:", error);
     }
@@ -42,6 +41,7 @@ const CreateNewCard = (props: ICreateNewCardProps) => {
   return (
     <div>
       <button
+        type="button"
         className="create-card-btn"
         onClick={() => setModalOpen(true)}>
         + додати картку

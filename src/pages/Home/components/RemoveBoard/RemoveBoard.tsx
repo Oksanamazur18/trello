@@ -1,15 +1,16 @@
 import React from "react";
-import api from "../../../../api/request";
+import api from "../../../../api/request.ts";
+
 interface IRemoveBoardProps {
   boardId: number;
   onBoardRemove: () => void;
 }
 
-const RemoveBoard = (props: IRemoveBoardProps) => {
+const RemoveBoard = ({boardId, onBoardRemove}: IRemoveBoardProps) => {
   const handleRemoveBoard = async () => {
     try {
-      await api.delete(`/board/${props.boardId}`);
-      props.onBoardRemove();
+      await api.delete(`/board/${boardId}`);
+      onBoardRemove();
     } catch (error) {
       console.error(error);
     }

@@ -1,12 +1,14 @@
 import React from "react";
-import "./card.scss";
-import RemoveCard from "./RemoveCard/RemoveCard";
-import { ICard } from "../../../../common/interfaces/ICard";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../../modal/modalSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import "./card.scss";
+import RemoveCard from "./RemoveCard/RemoveCard.tsx";
+import type { ICard } from "../../../../common/interfaces/ICard.d.ts";
+import { openModal } from "../../../modal/modalSlice.ts";
+
+
 
 interface CardProps {
   card: ICard;
@@ -24,8 +26,8 @@ const Card = ({ card, boardId, listId, onCardUpdating }: CardProps) => {
     dispatch(
       openModal({
         cardData: card,
-        board_id: boardId,
-        list_id: listId,
+        boardId,
+        listId,
       }),
     );
   };
@@ -38,7 +40,7 @@ const Card = ({ card, boardId, listId, onCardUpdating }: CardProps) => {
         cardId={card.id}
         onCardRemove={onCardUpdating}
       />
-      <button className="btn-update" onClick={handleClickUpdate}>
+      <button type="button" className="btn-update" onClick={handleClickUpdate}>
         <FontAwesomeIcon
           className="icon"
           icon={faPen}

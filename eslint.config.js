@@ -14,12 +14,12 @@ export default [
       parser: tsParser,
     },
     plugins: {
-      "@typescript-eslint": ts,
+      // "@typescript-eslint": ts,
       react,
     },
     rules: {
       ...js.configs.recommended.rules,
-      ...ts.configs.recommended.rules,
+      // ...ts.configs.recommended.rules,
       ...react.configs.recommended.rules,
       "@typescript-eslint/no-unused-vars": "warn",
       "react/react-in-jsx-scope": "off",
@@ -48,7 +48,8 @@ export default [
        "no-param-reassign": "off",
        "react/self-closing-comp": "off",
        "jsx-a11y/click-events-have-key-events": "off",
-       "jsx-a11y/no-static-element-interactions": "off"
+       "jsx-a11y/no-static-element-interactions": "off",
+       
     },
   },
 ];

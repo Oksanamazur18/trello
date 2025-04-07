@@ -6,6 +6,6 @@ export interface ICard {
   color: string;
   position: number;
   boardId: number;
-  list_id: number;
+  listId: number;
   boardId: number;
 }

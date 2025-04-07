@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../store/store";
-import { updateList } from "../../../../Board/components/List/listSlice";
-import { nameRegex } from "../../../../../common/constants/regex";
+import { AppDispatch } from "../../../../../store/store.ts";
+import { updateList } from "../../../../Board/components/List/listSlice.ts";
+import { nameRegex } from "../../../../../common/constants/regex.ts";
 interface IUpdateListProps {
   boardId: number;
   listId: number;
