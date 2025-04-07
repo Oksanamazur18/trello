@@ -36,14 +36,7 @@ const List = (list: IList) => {
     document.body.appendChild(dragImage);
     event.dataTransfer.setDragImage(dragImage, offsetX, offsetY);
 
-    // const updatedCards = list.cards
-    //   .filter((card) => card.id !== cardId)
-    //   .map(({ id, position: pos }) => ({
-    //     id,
-    //     position: pos > position ? pos - 1 : pos,
-    //     listId,
-    //   }));
-
+    
     const updatedCards = list.cards
     .filter((card) => card.id !== cardId)
     .map((card) => ({
@@ -87,33 +80,6 @@ const List = (list: IList) => {
       setSlotIndex(list.cards.length);
     }
   };
-
-  // const handleDragOverList = ({
-  //   preventDefault,
-  //   dataTransfer,
-  //   clientY,
-  //   currentTarget,
-  // }: React.DragEvent<HTMLDivElement>) => {
-  //   preventDefault();
-  
-  //   dataTransfer.effectAllowed = "move";
-  //   dataTransfer.dropEffect = "move";
-  
-  //   const { cards } = list;
-  
-  //   if (cards.length === 0) {
-  //     setSlotIndex(0);
-  //     return;
-  //   }
-  
-  //   const { top, height } = currentTarget.getBoundingClientRect();
-  //   const offsetY = clientY - top;
-  
-  //   if (offsetY > height - 20) {
-  //     setSlotIndex(cards.length);
-  //   }
-  // };
-  
 
   const handleDrop = async (
     event: React.DragEvent<HTMLDivElement>,
