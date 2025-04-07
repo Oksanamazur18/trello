@@ -54,6 +54,6 @@ export function CreateNewCard ({boardId, listId,currentCards, onCardCreate}: ICr
       />
     </div>
   );
-};
+}
 
 export default CreateNewCard;

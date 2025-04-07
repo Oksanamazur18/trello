@@ -111,6 +111,6 @@ export function Board  ()  {
       <Modal />
     </div>
   );
-};
+}
 
 export default Board;
