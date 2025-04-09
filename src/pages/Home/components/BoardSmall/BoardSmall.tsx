@@ -16,7 +16,7 @@ interface IBoardProps {
 const Board = ({id, title, custom, onBoardRemove}: IBoardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setTitle] = useState(title);
-  const colorBoard = custom
+  const boardColor = custom
     ? {
       backgroundColor: custom.background,
     }
@@ -36,7 +36,7 @@ const Board = ({id, title, custom, onBoardRemove}: IBoardProps) => {
     setIsEditing(true);
   };
   return (
-    <div className="board-container" style={colorBoard}>
+    <div className="board-container" style={boardColor}>
       <div className="title-container" onClick={handleClick}>
         {isEditing ? (
           <BoardTitle
