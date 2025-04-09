@@ -42,7 +42,7 @@ const List = (list: IList) => {
     .map((card) => ({
       id: card.id,
       position: card.position > position ? card.position - 1 : card.position,
-      listId,
+      list_id: listId,
     }));
 
     try {
